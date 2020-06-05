@@ -8,7 +8,7 @@ import (
 	"github.com/MarcosCaamal/twittor/bd"
 )
 
-/*LeoTweetsSeguidores lee los tweets de todos nuestros seguidores*/
+/*LeoTweetsSeguidores lee los tweets de todos nuestros seguidores */
 func LeoTweetsSeguidores(w http.ResponseWriter, r *http.Request) {
 
 	if len(r.URL.Query().Get("pagina")) < 1 {

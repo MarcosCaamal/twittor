@@ -6,7 +6,7 @@ import (
 	"github.com/MarcosCaamal/twittor/bd"
 )
 
-/*ChequeoBD es el middlew que me permite conocer el estado de la BD*/
+/*ChequeoBD es el middlew que me permite conocer el estado de la BD */
 func ChequeoBD(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if bd.ChequeoConnection() == 0 {
@@ -15,5 +15,4 @@ func ChequeoBD(next http.HandlerFunc) http.HandlerFunc {
 		}
 		next.ServeHTTP(w, r)
 	}
-
 }

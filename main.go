@@ -12,6 +12,5 @@ func main() {
 		log.Fatal("Sin conexión a la BD")
 		return
 	}
-
 	handlers.Manejadores()
 }

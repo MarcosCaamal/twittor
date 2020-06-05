@@ -12,6 +12,7 @@ import (
 )
 
 /*Manejadores seteo mi puerto, el Handler y pongo a escuchar el servidor*/
+/*Manejadores seteo mi puerto, el Handler y pongo a escuchar al Servidor */
 func Manejadores() {
 	router := mux.NewRouter()
 
@@ -33,16 +34,12 @@ func Manejadores() {
 	router.HandleFunc("/consultaRelacion", middlew.ChequeoBD(middlew.ValidoJWT(routers.ConsultaRelacion))).Methods("GET")
 
 	router.HandleFunc("/listaUsuarios", middlew.ChequeoBD(middlew.ValidoJWT(routers.ListaUsuarios))).Methods("GET")
-
 	router.HandleFunc("/leoTweetsSeguidores", middlew.ChequeoBD(middlew.ValidoJWT(routers.LeoTweetsSeguidores))).Methods("GET")
 
 	PORT := os.Getenv("PORT")
-
 	if PORT == "" {
 		PORT = "8080"
 	}
-
 	handler := cors.AllowAll().Handler(router)
-
 	log.Fatal(http.ListenAndServe(":"+PORT, handler))
 }

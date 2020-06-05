@@ -9,10 +9,11 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-/*InsertoTweet graba el Tweet en la BD*/
+/*InsertoTweet graba el Tweet en la BD */
 func InsertoTweet(t models.GraboTweet) (string, bool, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*15)
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
+
 	db := MongoCN.Database("twittor")
 	col := db.Collection("tweet")
 
@@ -21,7 +22,6 @@ func InsertoTweet(t models.GraboTweet) (string, bool, error) {
 		"mensaje": t.Mensaje,
 		"fecha":   t.Fecha,
 	}
-
 	result, err := col.InsertOne(ctx, registro)
 	if err != nil {
 		return "", false, err
@@ -29,5 +29,4 @@ func InsertoTweet(t models.GraboTweet) (string, bool, error) {
 
 	objID, _ := result.InsertedID.(primitive.ObjectID)
 	return objID.String(), true, nil
-
 }

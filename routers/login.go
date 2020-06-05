@@ -10,9 +10,9 @@ import (
 	"github.com/MarcosCaamal/twittor/models"
 )
 
-/*Login realiza el login*/
+/*Login realiza el login */
 func Login(w http.ResponseWriter, r *http.Request) {
-	w.Header().Add("content-type", "application-json")
+	w.Header().Add("content-type", "application/json")
 
 	var t models.Usuario
 
@@ -21,9 +21,9 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Usuario y/o Contraseña inválidos "+err.Error(), 400)
 		return
 	}
-
 	if len(t.Email) == 0 {
 		http.Error(w, "El email del usuario es requerido ", 400)
+		return
 	}
 	documento, existe := bd.IntentoLogin(t.Email, t.Password)
 	if existe == false {
@@ -33,9 +33,10 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 	jwtKey, err := jwt.GeneroJWT(documento)
 	if err != nil {
-		http.Error(w, "Usuario y/o Contraseña inválidos "+err.Error(), 400)
+		http.Error(w, "Ocurrió un error al intentar general el Token correspondiente "+err.Error(), 400)
 		return
 	}
+
 	resp := models.RespuestaLogin{
 		Token: jwtKey,
 	}
@@ -50,5 +51,4 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		Value:   jwtKey,
 		Expires: expirationTime,
 	})
-
 }

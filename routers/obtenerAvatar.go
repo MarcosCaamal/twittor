@@ -8,11 +8,12 @@ import (
 	"github.com/MarcosCaamal/twittor/bd"
 )
 
-/*ObtenerAvatar enviar el Avatar al HTTP*/
+/*ObtenerAvatar envia el Avatar al HTTP */
 func ObtenerAvatar(w http.ResponseWriter, r *http.Request) {
+
 	ID := r.URL.Query().Get("id")
 	if len(ID) < 1 {
-		http.Error(w, "Debe envair el parámetro ID", http.StatusBadRequest)
+		http.Error(w, "Debe enviar el parámetro ID", http.StatusBadRequest)
 		return
 	}
 
@@ -25,7 +26,9 @@ func ObtenerAvatar(w http.ResponseWriter, r *http.Request) {
 	OpenFile, err := os.Open("uploads/avatars/" + perfil.Avatar)
 	if err != nil {
 		http.Error(w, "Imagen no encontrada", http.StatusBadRequest)
+		return
 	}
+
 	_, err = io.Copy(w, OpenFile)
 	if err != nil {
 		http.Error(w, "Error al copiar la imagen", http.StatusBadRequest)

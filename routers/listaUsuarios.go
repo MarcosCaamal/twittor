@@ -8,7 +8,7 @@ import (
 	"github.com/MarcosCaamal/twittor/bd"
 )
 
-/*ListaUsuarios leo la lista de los usuarios*/
+/*ListaUsuarios leo la lista de los usuarios */
 func ListaUsuarios(w http.ResponseWriter, r *http.Request) {
 
 	typeUser := r.URL.Query().Get("type")

@@ -9,10 +9,11 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-/*ModificoRegistro permite modificar el perfil del usuario*/
+/*ModificoRegistro permite modificar el perfil del usuario */
 func ModificoRegistro(u models.Usuario, ID string) (bool, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*15)
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
+
 	db := MongoCN.Database("twittor")
 	col := db.Collection("usuarios")
 
@@ -37,7 +38,7 @@ func ModificoRegistro(u models.Usuario, ID string) (bool, error) {
 		registro["ubicacion"] = u.Ubicacion
 	}
 	if len(u.SitioWeb) > 0 {
-		registro["sitioweb"] = u.SitioWeb
+		registro["sitioWeb"] = u.SitioWeb
 	}
 
 	updtString := bson.M{
